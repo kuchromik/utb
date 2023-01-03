@@ -1,6 +1,11 @@
 <script>
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
+
+	//tabs
+	let items = ['Current Jobs', 'Add New Job'];
+	let activeItem = 'Current Jobs';
+
 </script>
 <Header />
 <main>
