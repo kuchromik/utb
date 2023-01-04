@@ -1,6 +1,7 @@
 <script>
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
+	import CreateJobForm from "./components/CreateJobForm.svelte";
 	import Tabs from "./shared/Tabs.svelte";
 
 	//tabs
@@ -11,6 +12,23 @@
 		activeItem = e.detail;
 	}
 
+	//jobs
+
+	let jobs = [
+		{
+			id: 1,
+			customer: 'Giraffe',
+			jobname: 'Visitenkarten',
+			done: false,
+		},
+	]
+
+	const handleAdd = (e) => {
+		const job = e.detail;
+		jobs = [job, ...jobs];
+		console.log(jobs);
+	}
+
 </script>
 <Header />
 <main>
@@ -19,7 +37,7 @@
 	{#if activeItem === 'Current Jobs'}
 		<p>Joblist comes here</p>
 	{:else if activeItem === 'Add New Job'}
-		<p>Create New Job comes here</p>
+		<CreateJobForm on:add={handleAdd}/>
 	{/if}
 </main>
 <Footer />
