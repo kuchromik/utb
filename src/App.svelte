@@ -1,6 +1,7 @@
 <script>
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
+	import JobList from "./components/JobList.svelte";
 	import CreateJobForm from "./components/CreateJobForm.svelte";
 	import Tabs from "./shared/Tabs.svelte";
 
@@ -27,6 +28,8 @@
 		const job = e.detail;
 		jobs = [job, ...jobs];
 		console.log(jobs);
+		activeItem = 'Current Jobs';
+
 	}
 
 </script>
@@ -35,7 +38,7 @@
 	<h1>Ufftragsbuch-Online</h1>
 	<Tabs {activeItem} {items} on:tabChange={tabChange}/>
 	{#if activeItem === 'Current Jobs'}
-		<p>Joblist comes here</p>
+		<JobList {jobs}/>
 	{:else if activeItem === 'Add New Job'}
 		<CreateJobForm on:add={handleAdd}/>
 	{/if}
