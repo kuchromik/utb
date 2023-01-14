@@ -1,4 +1,5 @@
 <script>
+    import JobStore from '../stores/JobStore.js';
     import {createEventDispatcher} from 'svelte';
     import Button from '../shared/Button.svelte';
 
@@ -27,7 +28,10 @@
 
         if (valid) {
             let job = {...fields, done: false, id: Math.random()};
-            dispatch('add', job);
+            JobStore.update(currentJobs => {
+                return [job, ...currentJobs];
+            })
+            dispatch('add');
         }
     }
 </script>

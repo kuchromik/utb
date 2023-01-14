@@ -1,11 +1,14 @@
 <script>
+    import {fade, slide, scale} from 'svelte/transition';
+    import {flip} from 'svelte/animate';
+    import JobStore from '../stores/JobStore.js';
     import JobDetails from './JobDetails.svelte';
-    export let jobs = [];
+
 </script>
 
 <div class="job-list">
-    {#each jobs as job (job.id)}
-        <div>
+    {#each $JobStore as job (job.id)}
+        <div in:fade out:scale|local animate:flip={{duration: 500}}>
             <JobDetails {job}/>
         </div>
     {/each}
@@ -13,9 +16,7 @@
 
 <style>
     .job-list{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 20px;
+        display: inline-block;
     }
 
 </style>

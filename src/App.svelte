@@ -13,21 +13,8 @@
 		activeItem = e.detail;
 	}
 
-	//jobs
-
-	let jobs = [
-		{
-			id: 1,
-			customer: 'Giraffe',
-			jobname: 'Visitenkarten',
-			done: false,
-		},
-	]
-
 	const handleAdd = (e) => {
-		const job = e.detail;
-		jobs = [job, ...jobs];
-		console.log(jobs);
+		
 		activeItem = 'Current Jobs';
 
 	}
@@ -38,7 +25,7 @@
 	<h1>Ufftragsbuch-Online</h1>
 	<Tabs {activeItem} {items} on:tabChange={tabChange}/>
 	{#if activeItem === 'Current Jobs'}
-		<JobList {jobs}/>
+		<JobList />
 	{:else if activeItem === 'Add New Job'}
 		<CreateJobForm on:add={handleAdd}/>
 	{/if}
