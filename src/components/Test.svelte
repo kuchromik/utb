@@ -6,16 +6,11 @@
 	addDoc, deleteDoc, doc
 } from 'firebase/firestore'
 
-let jobs = [ {
-        id: 1,
-        customer: 'Giraffe',
-        jobname: 'Visitenkarten',
-        done: false,
-    }];
+
 
 const db = getFirestore()
 
-let jobList = [];
+let List = [];
 
 const colRef = collection(db, 'Jobs')
 
@@ -28,7 +23,8 @@ async function getJobs(db) {
 }
 
 getJobs(db).then(jobList => {
-    console.log(jobList);
+    List = jobList;
+    console.log(List);
 })
 
 </script>
@@ -36,8 +32,8 @@ getJobs(db).then(jobList => {
 <div>
     <h1>Test</h1>
     
-    {#each jobList as job}
-        <p>{job.jobname}</p>
+    {#each List as job}
+        <p>{job.customer}</p>
     {/each}
     
 </div>
