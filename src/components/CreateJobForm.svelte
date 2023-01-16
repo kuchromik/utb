@@ -1,7 +1,16 @@
 <script>
-    import JobStore from '../stores/JobStore.js';
     import {createEventDispatcher} from 'svelte';
     import Button from '../shared/Button.svelte';
+
+    import app from '../FireStore.js';
+
+import {
+getFirestore, collection, getDocs,
+addDoc, deleteDoc, doc
+} from 'firebase/firestore';
+
+const db = getFirestore()
+const colRef = collection(db, 'Jobs')
 
     let dispatch = createEventDispatcher();
 
@@ -28,9 +37,7 @@
 
         if (valid) {
             let job = {...fields, done: false, id: Math.random()};
-            JobStore.update(currentJobs => {
-                return [job, ...currentJobs];
-            })
+            addDoc(colRef, job);
             dispatch('add');
         }
     }

@@ -10,7 +10,7 @@
 
 const db = getFirestore()
 
-let List = [];
+let jobList = [];
 
 const colRef = collection(db, 'Jobs')
 
@@ -18,13 +18,11 @@ async function getJobs(db) {
   const jobsCol = collection(db, 'Jobs');
   const jobSnapshot = await getDocs(jobsCol);
   const jobList = jobSnapshot.docs.map(doc => doc.data());
-  console.log(jobList)
   return jobList;
 }
 
-getJobs(db).then(jobList => {
-    List = jobList;
-    console.log(List);
+getJobs(db).then(data => {
+    jobList = data;
 })
 
 </script>
@@ -32,7 +30,7 @@ getJobs(db).then(jobList => {
 <div>
     <h1>Test</h1>
     
-    {#each List as job}
+    {#each jobList as job}
         <p>{job.customer}</p>
     {/each}
     

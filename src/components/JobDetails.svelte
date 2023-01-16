@@ -1,17 +1,25 @@
 <script>
     export let job;
     import Button from '../shared/Button.svelte';
-    import JobStore from '../stores/JobStore.js';
+
+    import app from '../FireStore.js';
+
+    import {
+    getFirestore, collection, getDocs,
+    addDoc, deleteDoc, doc
+    } from 'firebase/firestore';
+
+    const db = getFirestore()
+    const colRef = collection(db, 'Jobs')
 
     const handleClick = () => {
         job.done = !job.done;
-        console.log(job);
     }
 
     const handleDelete = (id) => {
-        JobStore.update(currentJobs => {
-            return currentJobs.filter(job => job.id != id)
-        });
+        //const docRef = doc(db, 'Jobs', id);
+        //deleteDoc(docRef);
+        console.log(id);
     };
 
 </script>
