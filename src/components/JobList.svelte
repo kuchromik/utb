@@ -27,9 +27,9 @@
 
     getJobs(db).then(data => {
     jobList = data;
+    console.log(jobList);
     })
-
-
+   
 </script>
 
 <div class="job-list">

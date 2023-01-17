@@ -36,7 +36,7 @@ const colRef = collection(db, 'Jobs')
         }
 
         if (valid) {
-            let job = {...fields, done: false, id: Math.random()};
+            let job = {...fields, done: false};
             addDoc(colRef, job);
             dispatch('add');
         }

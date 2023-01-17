@@ -17,14 +17,14 @@
     }
 
     const handleDelete = (id) => {
-        //const docRef = doc(db, 'Jobs', id);
+        const docRef = doc(db, 'Jobs', id);
         //deleteDoc(docRef);
-        console.log(id);
+        console.log(docRef.id);
     };
-
 </script>
 
 <div class="job">
+    <div class="job-column"><p>{job.id}</p></div>
     <div class="job-column"><p>{job.customer}</p></div>
     <div class="job-column"><p>{job.jobname}</p></div>
     <div class="job-column" class:done={job.done} ><p><input type="checkbox" id="done" name="done" on:click={handleClick}/> done</p></div>
@@ -36,7 +36,7 @@
 <style>
     .job{
         display: grid;
-        grid-template-columns: 200px 200px 120px 60px; 
+        grid-template-columns: 200px 200px 200px 120px 60px; 
         column-gap: 10px;
         row-gap: 15px;
         
