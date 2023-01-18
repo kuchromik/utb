@@ -18,8 +18,8 @@
 
     const handleDelete = (id) => {
         const docRef = doc(db, 'Jobs', id);
-        //deleteDoc(docRef);
         console.log(docRef.id);
+        deleteDoc(docRef);
     };
 </script>
 

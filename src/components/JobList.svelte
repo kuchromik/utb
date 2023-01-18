@@ -6,30 +6,44 @@
     import app from '../FireStore.js';
 
     import {
-    getFirestore, collection, getDocs,
-    addDoc, deleteDoc, doc
+    getFirestore, collection, onSnapshot,
+    addDoc, deleteDoc, doc, getDocs
     } from 'firebase/firestore';
 
 
 
     const db = getFirestore()
 
+    let data = [];
     let jobList = [];
 
-    const colRef = collection(db, 'Jobs')
-
+    /*
     async function getJobs(db) {
     const jobsCol = collection(db, 'Jobs');
     const jobSnapshot = await getDocs(jobsCol);
-    const jobList = jobSnapshot.docs.map(doc => doc.data());
-    return jobList;
+    const docs = jobSnapshot.docs.map((doc) => {
+        data = doc.data();
+        data.id = doc.id;
+        return data;
+        })
+        return(docs);
     }
 
     getJobs(db).then(data => {
     jobList = data;
-    console.log(jobList);
-    })
-   
+    })*/
+    const colRef = collection(db, 'Jobs');
+
+    onSnapshot(colRef, (snapshot) => {
+                let liste = [];
+                snapshot.docs.forEach((doc) => {
+                liste.push({ ...doc.data(), id: doc.id})  
+                })
+                console.log(liste);
+                }
+                ).then(liste => {
+                    jobList = liste;})
+    
 </script>
 
 <div class="job-list">
