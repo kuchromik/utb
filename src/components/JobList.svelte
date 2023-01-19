@@ -14,35 +14,19 @@
 
     const db = getFirestore()
 
-    let data = [];
     let jobList = [];
 
-    /*
-    async function getJobs(db) {
-    const jobsCol = collection(db, 'Jobs');
-    const jobSnapshot = await getDocs(jobsCol);
-    const docs = jobSnapshot.docs.map((doc) => {
-        data = doc.data();
-        data.id = doc.id;
-        return data;
-        })
-        return(docs);
-    }
-
-    getJobs(db).then(data => {
-    jobList = data;
-    })*/
     const colRef = collection(db, 'Jobs');
 
-    onSnapshot(colRef, (snapshot) => {
-                let liste = [];
-                snapshot.docs.forEach((doc) => {
-                liste.push({ ...doc.data(), id: doc.id})  
+    const unsubscribe = onSnapshot(colRef, querysnapshot => {
+                let fbJobs = [];
+                querysnapshot.forEach((doc) => {
+                let job = { ...doc.data(), id: doc.id};
+                fbJobs = [job, ...fbJobs];  
                 })
-                console.log(liste);
+                jobList = fbJobs;
                 }
-                ).then(liste => {
-                    jobList = liste;})
+                )
     
 </script>
 
