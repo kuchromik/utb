@@ -6,39 +6,57 @@
 
     import {
     getFirestore, collection, getDocs,
-    addDoc, deleteDoc, doc
+    addDoc, deleteDoc, doc, updateDoc
     } from 'firebase/firestore';
 
     const db = getFirestore()
-    const colRef = collection(db, 'Jobs')
 
     const handleClick = () => {
         job.done = !job.done;
     }
 
+    const handleArchiv = (id) => {
+        const docRef = doc(db, 'Jobs', id);
+
+        updateDoc(docRef, {
+            archiv: true
+        })
+        
+        //deleteDoc(docRef);
+    }
     const handleDelete = (id) => {
         const docRef = doc(db, 'Jobs', id);
-        console.log(docRef.id);
+        
         deleteDoc(docRef);
-    };
+    }
 </script>
 
 <div class="job">
-    <div class="job-column"><p>{job.id}</p></div>
     <div class="job-column"><p>{job.customer}</p></div>
     <div class="job-column"><p>{job.jobname}</p></div>
-    <div class="job-column" class:done={job.done} ><p><input type="checkbox" id="done" name="done" on:click={handleClick}/> done</p></div>
+    <div class="job-column"><p>{job.details}</p></div>
+    <div class="job-column"><p>{job.producer}</p></div>
+    {#if job.producer === 'chromik'}
+    <div class="job-column" class:done={job.invoice_ready} ><p><input type="checkbox" id="done" name="invoice" on:click={handleClick}/>MAT</p></div>
+    <div class="job-column" class:done={job.invoice_ready} ><p><input type="checkbox" id="done" name="invoice" on:click={handleClick}/>PLAT</p></div>
+    <div class="job-column" class:done={job.invoice_ready} ><p><input type="checkbox" id="done" name="invoice" on:click={handleClick}/>DRU</p></div>
+    {/if}
+    <div class="job-column" class:done={job.invoice_ready} ><p><input type="checkbox" id="done" name="invoice" on:click={handleClick}/>REC</p></div>
     <div>
-         <Button flat={true} on:click={() => handleDelete(job.id)}>Delete</Button>
+        {#if !job.archiv}
+         <Button flat={true} on:click={() => handleArchiv(job.id)}>archivieren</Button>
+         {:else if job.archiv}
+         <Button flat={true} on:click={() => handleDelete(job.id)}>löschen!</Button>
+         {/if}
     </div>
 </div> 
 
 <style>
     .job{
         display: grid;
-        grid-template-columns: 200px 200px 200px 120px 60px; 
+        grid-template-columns: 150px 200px 500px 100px 60px 60px 60px 60px 100px; 
         column-gap: 10px;
-        row-gap: 15px;
+        row-gap: 1px;
         
     }
     .job-column{

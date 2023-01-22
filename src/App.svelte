@@ -2,12 +2,13 @@
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
 	import JobList from "./components/JobList.svelte";
+	import Archiv from "./components/Archiv.svelte";
 	import CreateJobForm from "./components/CreateJobForm.svelte";
 	import Tabs from "./shared/Tabs.svelte";
 
 	//tabs
-	let items = ['Current Jobs', 'Add New Job'];
-	let activeItem = 'Current Jobs';
+	let items = ['Aktuell', 'Neuer Auftrag', 'Archiv'];
+	let activeItem = 'Aktuell';
 
 	const tabChange = (e) => {
 		activeItem = e.detail;
@@ -15,7 +16,7 @@
 
 	const handleAdd = (e) => {
 		
-		activeItem = 'Current Jobs';
+		activeItem = 'Aktuell';
 
 	}
 
@@ -24,17 +25,19 @@
 <main>
 	<h1>Ufftragsbuch-Online</h1>
 	<Tabs {activeItem} {items} on:tabChange={tabChange}/>
-	{#if activeItem === 'Current Jobs'}
+	{#if activeItem === 'Aktuell'}
 		<JobList />
-	{:else if activeItem === 'Add New Job'}
+	{:else if activeItem === 'Neuer Auftrag'}
 		<CreateJobForm on:add={handleAdd}/>
+	{:else if activeItem === 'Archiv'}
+	<Archiv />
 	{/if}
 </main>
 <Footer />
 <style>
 	main {
-		max-width: 960px;
-		margin: 40px auto;
+		max-width: 1600px;
+		margin: 20px auto;
 	}
 	h1{
 		text-align: center;

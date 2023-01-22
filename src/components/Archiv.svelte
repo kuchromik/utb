@@ -19,7 +19,7 @@
 
     //const colRef = collection(db, 'Jobs');
 
-    const colRef = query(collection(db, "Jobs"), where("archiv", "==", false));
+    const colRef = query(collection(db, "Jobs"), where("archiv", "==", true));
 
 
     const unsubscribe = onSnapshot(colRef, querysnapshot => {

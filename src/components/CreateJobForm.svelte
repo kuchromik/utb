@@ -14,8 +14,8 @@ const colRef = collection(db, 'Jobs')
 
     let dispatch = createEventDispatcher();
 
-    let fields = { customer: '', jobname: ''};
-    let errors = { customer: '', jobname: ''};
+    let fields = { customer: '', jobname: '', details: '', producer: ''};
+    let errors = { customer: '', jobname: '', details: '', producer: ''};
     let valid = false;
 
     const submitHandler = () => {
@@ -35,11 +35,30 @@ const colRef = collection(db, 'Jobs')
             errors.jobname = '';
         }
 
-        if (valid) {
-            let job = {...fields, done: false};
+        if (fields.details.trim().length < 5) {
+            valid = false;
+            errors.details = 'Details mindestens 5 Buchstaben';
+        } else {
+            errors.details = '';
+        }
+
+        if (fields.producer.trim().length < 2) {
+            valid = false;
+            errors.producer = 'Produzent mindestens 2 Buchstaben';
+        } else {
+            errors.producer = '';
+        }
+
+        if (valid && fields.producer === 'chromik') {
+            let job = {...fields, paper_ready: false, plates_ready: false, print_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
             dispatch('add');
-        }
+            }       
+         else if (valid) {
+            let job = {...fields, invoice_ready: false, archiv: false };
+            addDoc(colRef, job);
+            dispatch('add');
+            }
     }
 </script>
 
@@ -53,6 +72,16 @@ const colRef = collection(db, 'Jobs')
         <label for="jobname">Auftrag</label>
         <input type="text" id="jobname" bind:value={fields.jobname}>
         <div class="error">{errors.jobname}</div>
+    </div>
+    <div class="form-field">
+        <label for="details">Details</label>
+        <input type="text" id="details" bind:value={fields.details}>
+        <div class="error">{errors.details}</div>
+    </div>
+    <div class="form-field">
+        <label for="producer">Produzent</label>
+        <input type="text" id="producer" bind:value={fields.producer}>
+        <div class="error">{errors.producer}</div>
     </div>
     <Button type="secondary" flat=true>Job registrieren</Button>
 </form>
