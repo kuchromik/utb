@@ -20,6 +20,8 @@ const colRef = collection(db, 'Jobs')
 
     const submitHandler = () => {
         valid = true;
+        let today = new Date();
+        console.log(today);
 
         if (fields.customer.trim().length < 2) {
             valid = false;

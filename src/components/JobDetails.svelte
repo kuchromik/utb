@@ -15,6 +15,7 @@
     let plates_ready = job.plates_ready;
     let print_ready = job.print_ready;
     let invoice_ready = job.invoice_ready;
+    let producer = job.producer;
   
 
     const handleClick = (check, id) => {
@@ -45,16 +46,20 @@
 
     const handleArchiv = (id) => {
         const docRef = doc(db, 'Jobs', id);
-
+        
         if (paper_ready && plates_ready && print_ready && invoice_ready) {
 
         updateDoc(docRef, {
             archiv: true
         })
-    } else alert("Erst muss alles fertig sein!");
+        } else if ((producer != 'chromik') && invoice_ready) {
 
-        //deleteDoc(docRef);
+        updateDoc(docRef, {
+            archiv: true
+        })
+        } else window.alert("Erst muss der Job beendet sein!");
     }
+
     const handleDelete = (id) => {
         const docRef = doc(db, 'Jobs', id);
         

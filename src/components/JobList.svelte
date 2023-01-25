@@ -38,7 +38,7 @@
 
 <div class="job-list">
     {#each jobList as job, id(job)}
-    <div in:fade out:scale|local animate:flip={{duration: 500}}>
+    <div>
             <JobDetails {job}/>
     </div>
     {/each}
@@ -50,3 +50,9 @@
     }
 
 </style>
+
+<!--
+     <div in:fade out:scale|local animate:flip={{duration: 100}}>
+            <JobDetails {job}/>
+    </div>
+-->
