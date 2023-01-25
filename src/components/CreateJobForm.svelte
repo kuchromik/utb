@@ -42,7 +42,7 @@ const colRef = collection(db, 'Jobs')
             errors.details = '';
         }
 
-        if (fields.producer.trim().length < 2) {
+        if (fields.producer.trim().length < 0) {
             valid = false;
             errors.producer = 'Produzent mindestens 2 Buchstaben';
         } else {
