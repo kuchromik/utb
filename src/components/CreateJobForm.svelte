@@ -20,8 +20,14 @@ const colRef = collection(db, 'Jobs')
 
     const submitHandler = () => {
         valid = true;
+
         let today = new Date();
-        console.log(today);
+        let d = today.getDate();
+        let m = today.getMonth() + 1;
+        let y = today.getFullYear();
+ 
+        let jobstart = d + "." + m + "." + y;
+        console.log(jobstart);
 
         if (fields.customer.trim().length < 2) {
             valid = false;
@@ -43,21 +49,21 @@ const colRef = collection(db, 'Jobs')
         } else {
             errors.details = '';
         }
-
+        /*
         if (fields.producer.trim().length < 0) {
             valid = false;
-            errors.producer = 'Produzent mindestens 2 Buchstaben';
+            errors.producer = 'Produzent mindestens 0 Buchstaben';
         } else {
             errors.producer = '';
-        }
+        } */
 
         if (valid && fields.producer === 'chromik') {
-            let job = {...fields, paper_ready: false, plates_ready: false, print_ready: false, invoice_ready: false, archiv: false };
+            let job = {...fields, jobstart: jobstart, paper_ready: false, plates_ready: false, print_ready: false, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
             dispatch('add');
             }       
          else if (valid) {
-            let job = {...fields, invoice_ready: false, archiv: false };
+            let job = {...fields, jobstart: jobstart, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
             dispatch('add');
             }
@@ -77,7 +83,8 @@ const colRef = collection(db, 'Jobs')
     </div>
     <div class="form-field">
         <label for="details">Details</label>
-        <input type="text" id="details" bind:value={fields.details}>
+       
+        <textarea name="textarea" rows="5" cols="80" id="details" bind:value={fields.details}></textarea>
         <div class="error">{errors.details}</div>
     </div>
     <div class="form-field">
@@ -85,24 +92,29 @@ const colRef = collection(db, 'Jobs')
         <input type="text" id="producer" bind:value={fields.producer}>
         <div class="error">{errors.producer}</div>
     </div>
-    <Button type="secondary" flat=true>Job registrieren</Button>
+    <Button type="secondary" flat={false}>Job registrieren</Button>
 </form>
 
 <style>
     form{
-        width: 400px;
+        width: 600px;
         margin: 0 auto;
         text-align: center;
     }
     .form-field{
         margin: 18px auto;
-    }
-    input{
-        width: 100%;
+        border: solid 2px crimson;
+        background-color: lightgray;
         border-radius: 6px;
     }
+    input, textarea {
+        width: 95%;
+        border-radius: 6px;
+        margin: 10px;
+    }
+
     label{
-        margin: 10px auto;
+        margin: 10px;
         text-align: left;
     }
     .error{

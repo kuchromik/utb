@@ -68,21 +68,22 @@
 </script>
 
 <div class="job">
+    <div class="job-column"><p>{job.jobstart}</p></div>
     <div class="job-column"><p>{job.customer}</p></div>
     <div class="job-column"><p>{job.jobname}</p></div>
     <div class="job-column"><p>{job.details}</p></div>
     <div class="job-column"><p>{job.producer}</p></div>
     {#if job.producer === 'chromik'}
-    <div class="job-column" class:done={job.paper_ready} ><p><input type="checkbox" id="paper" name="paper" on:click={handleClick('paper', job.id)}/>MAT</p></div>
-    <div class="job-column" class:done={job.plates_ready} ><p><input type="checkbox" id="plates" name="plates" on:click={handleClick('plates', job.id)}/>PLAT</p></div>
-    <div class="job-column" class:done={job.print_ready} ><p><input type="checkbox" id="print" name="print" on:click={handleClick('print', job.id)}/>DRU</p></div>
+    <div class="job-column" class:done={job.paper_ready} ><p><input type="checkbox" id="paper" name="paper" on:click={handleClick('paper', job.id)} checked="{job.paper_ready}"/>MAT</p></div>
+    <div class="job-column" class:done={job.plates_ready} ><p><input type="checkbox" id="plates" name="plates" on:click={handleClick('plates', job.id)} checked="{job.plates_ready}"/>PLAT</p></div>
+    <div class="job-column" class:done={job.print_ready} ><p><input type="checkbox" id="print" name="print" on:click={handleClick('print', job.id)} checked="{job.print_ready}"/>DRU</p></div>
     {/if}
-    <div class="job-column" class:done={job.invoice_ready} ><p><input type="checkbox" id="done" name="invoice" on:click={handleClick('invoice', job.id)}/>REC</p></div>
+    <div class="job-column" class:done={job.invoice_ready} ><p><input type="checkbox" id="done" name="invoice" on:click={handleClick('invoice', job.id)} checked="{job.invoice_ready}"/>REC</p></div>
     <div>
         {#if !job.archiv}
          <Button flat={false} on:click={() => handleArchiv(job.id)}>archivieren</Button>
          {:else if job.archiv}
-         <Button flat={true} on:click={() => handleDelete(job.id)}>löschen!</Button>
+         <Button flat={false} on:click={() => handleDelete(job.id)}>löschen!</Button>
          {/if}
     </div>
 </div> 
@@ -90,13 +91,14 @@
 <style>
     .job{
         display: grid;
-        grid-template-columns: 150px 200px 500px 100px 60px 60px 60px 60px 100px; 
+        grid-template-columns: 100px 150px 200px 500px 100px 60px 60px 60px 60px 100px; 
         column-gap: 10px;
         row-gap: 1px;
         
     }
     .job-column{
-        border: solid 3px crimson;
+        border: solid 2px crimson;
+        background-color: lightgray;
         border-radius: 6px;
         margin-bottom: 1rem;
     }
@@ -104,7 +106,8 @@
         padding-left: 1rem;
     }
     .done{
-        border-color: green;
+        border-color: grey;
+        background-color: #45c496;
     }
     
 </style>
