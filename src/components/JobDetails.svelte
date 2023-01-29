@@ -60,6 +60,22 @@
         } else window.alert("Erst muss der Job beendet sein!");
     }
 
+    const handleChange = (id) => {
+        const docRef = doc(db, 'Jobs', id);
+        
+        if (paper_ready && plates_ready && print_ready && invoice_ready) {
+
+        updateDoc(docRef, {
+            archiv: true
+        })
+        } else if ((producer != 'chromik') && invoice_ready) {
+
+        updateDoc(docRef, {
+            archiv: true
+        })
+        } else window.alert("Erst muss der Job beendet sein!");
+    }
+
     const handleDelete = (id) => {
         const docRef = doc(db, 'Jobs', id);
         
@@ -81,6 +97,7 @@
     <div>
         {#if !job.archiv}
          <Button flat={false} on:click={() => handleArchiv(job.id)}>archivieren</Button>
+         <Button type="secondary" flat={false} on:click={() => handleChange(job.id)}>bearbeiten</Button>
          {:else if job.archiv}
          <Button flat={true} on:click={() => handleDelete(job.id)}>löschen!</Button>
          {/if}
