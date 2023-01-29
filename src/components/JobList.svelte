@@ -29,7 +29,6 @@
                 fbJobs = [job, ...fbJobs];  
                 })
                 jobList = fbJobs;
-                console.log(jobList)
                 }
                 )
                 
