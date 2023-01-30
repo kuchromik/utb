@@ -1,6 +1,7 @@
 <script>
     export let job;
     import Button from '../shared/Button.svelte';
+    import ChangeJobForm from './ChangeJobForm.svelte'
 
     import app from '../FireStore.js';
 
@@ -17,6 +18,7 @@
     let invoice_ready = job.invoice_ready;
     let producer = job.producer;
   
+    let changemod = false;
 
     const handleClick = (check, id) => {
         
@@ -62,18 +64,8 @@
 
     const handleChange = (id) => {
         const docRef = doc(db, 'Jobs', id);
-        
-        if (paper_ready && plates_ready && print_ready && invoice_ready) {
-
-        updateDoc(docRef, {
-            archiv: true
-        })
-        } else if ((producer != 'chromik') && invoice_ready) {
-
-        updateDoc(docRef, {
-            archiv: true
-        })
-        } else window.alert("Erst muss der Job beendet sein!");
+        changemod = true;
+      
     }
 
     const handleDelete = (id) => {
@@ -83,6 +75,12 @@
     }
 </script>
 
+{#if (changemod == true)}
+
+<ChangeJobForm/>
+
+{/if}
+<br>
 <div class="job">
     <div class="job-column"><p>{job.jobstart}</p></div>
     <div class="job-column"><p>{job.customer}</p></div>
