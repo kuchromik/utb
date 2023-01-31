@@ -77,7 +77,9 @@
 
 {#if (changemod == true)}
 
-<ChangeJobForm/>
+<p>{job.id}</p>
+
+<ChangeJobForm id={job.id}/>
 
 {/if}
 <br>

@@ -1,33 +1,44 @@
 <script>
+    export let id;
     import {createEventDispatcher} from 'svelte';
     import Button from '../shared/Button.svelte';
 
     import app from '../FireStore.js';
 
 import {
-getFirestore, collection, getDocs,
-addDoc, deleteDoc, doc
+getFirestore, collection, getDocs, onSnapshot,
+addDoc, deleteDoc, doc, updateDoc, getDoc
 } from 'firebase/firestore';
 
-const db = getFirestore()
-const colRef = collection(db, 'Jobs')
 
-    let dispatch = createEventDispatcher();
+let fields = { customer: '', jobname: '', details: '', producer: ''};
+let errors = { customer: '', jobname: '', details: '', producer: ''};
+let valid = false;
 
-    let fields = { customer: '', jobname: '', details: '', producer: ''};
-    let errors = { customer: '', jobname: '', details: '', producer: ''};
-    let valid = false;
+const db = getFirestore();
+const colRef = collection(db, 'Jobs');
+const docRef = doc(db, 'Jobs', id);
 
+onSnapshot(docRef, (doc) => {
+        let job = doc.data();
+        
+        fields.customer = job.customer;
+        fields.jobname = job.jobname;
+        fields.details = job.details;
+        fields.producer = job.producer;
+       })
+
+let dispatch = createEventDispatcher();
+
+
+/*
+    fields.customer = job.customer;
+    fields.jobname = job.jobname;
+    fields.details = job.details;
+    fields.producer = job.producer;
+*/
     const submitHandler = () => {
         valid = true;
-
-        let today = new Date();
-        let d = today.getDate();
-        let m = today.getMonth() + 1;
-        let y = today.getFullYear();
- 
-        let jobstart = d + "." + m + "." + y;
-        console.log(jobstart);
 
         if (fields.customer.trim().length < 2) {
             valid = false;
@@ -49,7 +60,7 @@ const colRef = collection(db, 'Jobs')
         } else {
             errors.details = '';
         }
-        /*
+        /* ausgesetzt, da Feld zunächst leer bleiben darf
         if (fields.producer.trim().length < 0) {
             valid = false;
             errors.producer = 'Produzent mindestens 0 Buchstaben';
@@ -57,17 +68,14 @@ const colRef = collection(db, 'Jobs')
             errors.producer = '';
         } */
 
-        if (valid && fields.producer === 'chromik') {
-            let job = {...fields, jobstart: jobstart, paper_ready: false, plates_ready: false, print_ready: false, shipped_ready: false, invoice_ready: false, archiv: false };
-            addDoc(colRef, job);
+        if (valid) {
+           
+            updateDoc(docRef, {...fields});
             dispatch('add');
-            }       
-         else if (valid) {
-            let job = {...fields, jobstart: jobstart, shipped_ready: false, invoice_ready: false, archiv: false };
-            addDoc(colRef, job);
-            dispatch('add');
+
             }
-    }
+        }       
+    
 </script>
 
 <form on:submit|preventDefault={submitHandler}>
