@@ -4,7 +4,9 @@
 	import JobList from "./components/JobList.svelte";
 	import Archiv from "./components/Archiv.svelte";
 	import CreateJobForm from "./components/CreateJobForm.svelte";
+	import SignIn from "./components/SignIn.svelte";
 	import Tabs from "./shared/Tabs.svelte";
+
 
 	//tabs
 	let items = ['Aktuell', 'Neuer Auftrag', 'Archiv'];
@@ -23,6 +25,7 @@
 </script>
 <Header />
 <main>
+	<SignIn />
 	<h1>Ufftragsbuch-Online</h1>
 	<Tabs {activeItem} {items} on:tabChange={tabChange}/>
 	{#if activeItem === 'Aktuell'}
