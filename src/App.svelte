@@ -5,8 +5,9 @@
 	import Archiv from "./components/Archiv.svelte";
 	import CreateJobForm from "./components/CreateJobForm.svelte";
 	import Tabs from "./shared/Tabs.svelte";
-	import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+	import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged} from "firebase/auth";
     import Button from './shared/Button.svelte';
+	import { onMount } from 'svelte';
 
 
 	//tabs
@@ -27,6 +28,7 @@
 
     let email = '';
     let password = '';
+	let user = null;
 
     
     const login = () => {
@@ -35,7 +37,8 @@
   	  .then((userCredential) => {
       
       // Signed in 
-      const user = userCredential.user;
+      user = userCredential.user;
+	  console.log (user)
       })
       .catch((error) => {
       const errorCode = error.code;
@@ -44,11 +47,26 @@
       });
     }
   
+	const logout = async () => {
+      const auth = getAuth();
+      signOut(auth).then(() => {
+		user = null;
+	  	activeItem = 'Aktuell';
+	  })
+	}
 
+	onMount(async () => {
+		const auth = getAuth();
+		onAuthStateChanged(auth, (newUser) => {
+			user = newUser
+		})
+	}
+	)
 </script>
 <Header />
 
 <main>
+	{#if (!user)}
 	<div>
 		<form on:submit|preventDefault={login}>
 			<div class="form-field">
@@ -64,15 +82,20 @@
 			<Button type="secondary" flat={false}>LOGIN</Button>
 		</form>
 	</div>
-
-	<h1>Ufftragsbuch-Online</h1>
-	<Tabs {activeItem} {items} on:tabChange={tabChange}/>
-	{#if activeItem === 'Aktuell'}
+	{/if}
+	{#if user}
+	<div>
+		<Button type="primary" flat={false} on:click={logout}>LOGOUT</Button>
+	</div>
+		<h1>Ufftragsbuch-Online</h1>
+		<Tabs {activeItem} {items} on:tabChange={tabChange}/>
+		{#if activeItem === 'Aktuell'}
 		<JobList />
-	{:else if activeItem === 'Neuer Auftrag'}
-		<CreateJobForm on:add={handleAdd}/>
-	{:else if activeItem === 'Archiv'}
-	<Archiv />
+		{:else if activeItem === 'Neuer Auftrag'}
+			<CreateJobForm on:add={handleAdd}/>
+		{:else if activeItem === 'Archiv'}
+		<Archiv />
+		{/if}
 	{/if}
 </main>
 <Footer />
