@@ -2,6 +2,8 @@
     export let id;
     import {createEventDispatcher} from 'svelte';
     import Button from '../shared/Button.svelte';
+    import {onDestroy } from 'svelte';
+    export let onClose;
 
     import app from '../FireStore.js';
 
@@ -76,6 +78,13 @@ let dispatch = createEventDispatcher();
             }
         }       
     
+        const breakHandler = () => {
+        
+            dispatch('add');
+
+            }
+            
+    
 </script>
 
 <form on:submit|preventDefault={submitHandler}>
@@ -100,8 +109,10 @@ let dispatch = createEventDispatcher();
         <input type="text" id="producer" bind:value={fields.producer}>
         <div class="error">{errors.producer}</div>
     </div>
+    <Button on:click={onClose} type="primary" flat={false}>Abbrechen</Button>
     <Button type="secondary" flat={false}>Job ändern</Button>
 </form>
+
 
 <style>
     form{

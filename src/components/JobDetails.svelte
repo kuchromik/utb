@@ -79,7 +79,7 @@
 
 <p>{job.id}</p>
 
-<ChangeJobForm id={job.id}/>
+<ChangeJobForm onClose={() => changemod = false } id={job.id}/>
 
 {/if}
 <br>

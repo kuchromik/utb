@@ -28,8 +28,7 @@
                 let job = { ...doc.data(), id: doc.id};
                 fbJobs = [job, ...fbJobs];  
                 })
-                jobList = fbJobs;
-                console.log(jobList)
+                jobList = fbJobs
                 }
                 )
                 
@@ -38,7 +37,7 @@
 
 <div class="job-list">
     {#each jobList as job, id(job)}
-    <div in:fade out:scale|local animate:flip={{duration: 500}}>
+    <div>
             <JobDetails {job}/>
     </div>
     {/each}

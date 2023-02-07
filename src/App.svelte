@@ -38,7 +38,6 @@
       
       // Signed in 
       user = userCredential.user;
-	  console.log (user)
       })
       .catch((error) => {
       const errorCode = error.code;
@@ -85,7 +84,9 @@
 	{/if}
 	{#if user}
 	<div>
-		<Button type="primary" flat={false} on:click={logout}>LOGOUT</Button>
+		<form>
+			<Button type="primary" flat={false} on:click={logout}>LOGOUT</Button>
+		</form>
 	</div>
 		<h1>Ufftragsbuch-Online</h1>
 		<Tabs {activeItem} {items} on:tabChange={tabChange}/>

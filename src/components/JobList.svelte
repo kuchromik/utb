@@ -50,8 +50,5 @@
 
 </style>
 
-<!--
-     <div in:fade out:scale|local animate:flip={{duration: 100}}>
-            <JobDetails {job}/>
-    </div>
--->
+
+ 
