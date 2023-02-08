@@ -32,13 +32,6 @@ onSnapshot(docRef, (doc) => {
 
 let dispatch = createEventDispatcher();
 
-
-/*
-    fields.customer = job.customer;
-    fields.jobname = job.jobname;
-    fields.details = job.details;
-    fields.producer = job.producer;
-*/
     const submitHandler = () => {
         valid = true;
 
@@ -78,12 +71,6 @@ let dispatch = createEventDispatcher();
             }
         }       
     
-        const breakHandler = () => {
-        
-            dispatch('add');
-
-            }
-    
     const copyHandler = () => {
 
         let today = new Date();
@@ -102,14 +89,7 @@ let dispatch = createEventDispatcher();
             addDoc(colRef, job);
             dispatch('add');
             }
-   
-
-const breakHandler = () => {
-
-    dispatch('add');
-
-    }
-}        
+    }        
     
 </script>
 
@@ -137,6 +117,10 @@ const breakHandler = () => {
     </div>
     <Button on:click={onClose} type="primary" flat={false}>Abbrechen</Button>
     <Button type="secondary" flat={false}>Job ändern</Button>
+</form>
+
+<form on:submit|preventDefault={copyHandler}>
+    <Button type="secondary" flat={false}>Job kopieren</Button>
 </form>
 
 
