@@ -27,7 +27,6 @@ const colRef = collection(db, 'Jobs')
         let y = today.getFullYear();
  
         let jobstart = d + "." + m + "." + y;
-        console.log(jobstart);
 
         if (fields.customer.trim().length < 2) {
             valid = false;

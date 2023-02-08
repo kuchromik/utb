@@ -2,6 +2,7 @@
     export let job;
     import Button from '../shared/Button.svelte';
     import ChangeJobForm from './ChangeJobForm.svelte'
+    import CopyJobForm from './CopyJobForm.svelte'
 
     import app from '../FireStore.js';
 
@@ -19,6 +20,7 @@
     let producer = job.producer;
   
     let changemod = false;
+    let copymod = false;
 
     const handleClick = (check, id) => {
         
@@ -68,6 +70,12 @@
       
     }
 
+    const handleCopy = (id) => {
+        const docRef = doc(db, 'Jobs', id);
+        copymod = true;
+      
+    }
+
     const handleDelete = (id) => {
         const docRef = doc(db, 'Jobs', id);
         
@@ -76,11 +84,13 @@
 </script>
 
 {#if (changemod == true)}
-
-<p>{job.id}</p>
-
 <ChangeJobForm onClose={() => changemod = false } id={job.id}/>
+    <p>Changemod</p>
+{/if}
 
+{#if (copymod == true)}
+<CopyJobForm onClose={() => copymod = false } id={job.id}/>
+    <p>Copymod</p>
 {/if}
 <br>
 <div class="job">
@@ -100,6 +110,7 @@
          <Button flat={false} on:click={() => handleArchiv(job.id)}>archivieren</Button>
          <Button type="secondary" flat={false} on:click={() => handleChange(job.id)}>bearbeiten</Button>
          {:else if job.archiv}
+         <Button type="secondary" flat={false} on:click={() => handleCopy(job.id)}>wiederholen</Button>
          <Button flat={false} on:click={() => handleDelete(job.id)}>löschen!</Button>
          {/if}
     </div>
