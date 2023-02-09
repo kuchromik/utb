@@ -8,7 +8,7 @@
     import {
     getFirestore, collection, onSnapshot,
     addDoc, deleteDoc, doc, getDocs,
-    query, where
+    query, where, orderBy
     } from 'firebase/firestore';
 
 
@@ -19,7 +19,7 @@
 
     //const colRef = collection(db, 'Jobs');
 
-    const colRef = query(collection(db, "Jobs"), where("archiv", "==", false));
+    const colRef = query(collection(db, "Jobs"), where("archiv", "==", false), orderBy("jobstart", "desc"),);
 
 
     const unsubscribe = onSnapshot(colRef, querysnapshot => {

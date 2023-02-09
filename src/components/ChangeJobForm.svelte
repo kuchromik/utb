@@ -66,7 +66,7 @@ let dispatch = createEventDispatcher();
         if (valid) {
            
             updateDoc(docRef, {...fields});
-            dispatch('add');
+            dispatch('Kai');
 
             }
         }       
@@ -82,12 +82,12 @@ let dispatch = createEventDispatcher();
         if (fields.producer === 'chromik') {
             let job = {...fields, jobstart: jobstart, paper_ready: false, plates_ready: false, print_ready: false, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
-            dispatch('add');
+            dispatch('Kai');
             }       
         else {
             let job = {...fields, jobstart: jobstart, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
-            dispatch('add');
+            dispatch('Kai');
             }
     }        
     
@@ -130,7 +130,8 @@ let dispatch = createEventDispatcher();
     form{
         width: 600px;
         margin: 0 auto;
-        text-align: center;
+        padding: 3px;
+        text-align: center
     }
     .form-field{
         margin: 18px auto;

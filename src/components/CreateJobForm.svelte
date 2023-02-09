@@ -21,12 +21,7 @@ const colRef = collection(db, 'Jobs')
     const submitHandler = () => {
         valid = true;
 
-        let today = new Date();
-        let d = today.getDate();
-        let m = today.getMonth() + 1;
-        let y = today.getFullYear();
- 
-        let jobstart = d + "." + m + "." + y;
+        let jobstart = new Date().getTime()/1000;
 
         if (fields.customer.trim().length < 2) {
             valid = false;
@@ -60,11 +55,13 @@ const colRef = collection(db, 'Jobs')
             let job = {...fields, jobstart: jobstart, paper_ready: false, plates_ready: false, print_ready: false, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
             dispatch('add');
+            
             }       
          else if (valid) {
             let job = {...fields, jobstart: jobstart, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
             dispatch('add');
+            
             }
     }
 </script>

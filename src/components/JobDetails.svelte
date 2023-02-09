@@ -11,12 +11,6 @@
     addDoc, deleteDoc, doc, updateDoc
     } from 'firebase/firestore';
 
-    const handleAdd = (e) => {
-		
-		activeItem = 'Aktuell';
-
-	}
-
     const db = getFirestore();
    
     let paper_ready = job.paper_ready;
@@ -26,6 +20,13 @@
     let producer = job.producer;
   
     let changemod = false;
+
+    var datetime = new Date(job.jobstart * 1000);  
+        console.log("---datetime---");  
+        console.log(datetime.toLocaleDateString('de-DE')); 
+
+    var tag = datetime.toLocaleDateString('de-DE');
+    var zeit = datetime.toTimeString('de-DE').slice(0,8);
 
     const handleClick = (check, id) => {
         
@@ -75,6 +76,12 @@
       
     }
 
+    const handleKai = () => {
+        
+        changemod = false;
+      
+    }
+
     const handleDelete = (id) => {
         const docRef = doc(db, 'Jobs', id);
         
@@ -83,11 +90,11 @@
 </script>
 
 {#if (changemod == true)}
-<ChangeJobForm on:add={handleAdd} onClose={() => changemod = false } id={job.id}/>
+<ChangeJobForm on:Kai={handleKai} onClose={() => changemod = false } id={job.id}/>
 {/if}
 <br>
 <div class="job">
-    <div class="job-column"><p>{job.jobstart}</p></div>
+    <div class="job-column"><p>{tag + ' ' + zeit}</p></div>
     <div class="job-column"><p>{job.customer}</p></div>
     <div class="job-column"><p>{job.jobname}</p></div>
     <div class="job-column"><p>{job.details}</p></div>
@@ -103,7 +110,7 @@
          <Button flat={false} on:click={() => handleArchiv(job.id)}>archivieren</Button>
          <Button type="secondary" flat={false} on:click={() => handleChange(job.id)}>bearbeiten</Button>
          {:else if job.archiv}
-         <Button type="secondary" flat={false} on:click={() => handleChange(job.id)}>wiederholen</Button>
+         <Button type="secondary" flat={false} on:click={() => handleChange(job.id)}>bearbeiten</Button>
          <Button flat={false} on:click={() => handleDelete(job.id)}>löschen!</Button>
          {/if}
     </div>
@@ -112,7 +119,7 @@
 <style>
     .job{
         display: grid;
-        grid-template-columns: 100px 150px 200px 500px 100px 60px 60px 60px 60px 100px; 
+        grid-template-columns: 150px 150px 200px 500px 100px 60px 60px 60px 60px 100px; 
         column-gap: 10px;
         row-gap: 1px;
         

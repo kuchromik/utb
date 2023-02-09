@@ -21,7 +21,7 @@
 	const handleAdd = (e) => {
 		
 		activeItem = 'Aktuell';
-
+		console.log('dispatch add executed')
 	}
 
 	
@@ -31,7 +31,7 @@
 	let user = null;
 
     
-    const login = () => {
+    const login = async () => {
       const auth = getAuth();
       signInWithEmailAndPassword(auth, email, password)
   	  .then((userCredential) => {
