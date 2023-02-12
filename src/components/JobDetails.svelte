@@ -91,7 +91,9 @@
     <div class="job-column"><p>{tag + ' ' + zeit}</p></div>
     <div class="job-column"><p>{job.customer}</p></div>
     <div class="job-column"><p>{job.jobname}</p></div>
+    <div class="job-column"><p>{job.quantity} Stk.</p></div>
     <div class="job-column"><p>{job.details}</p></div>
+    <div class="job-column"><p>{job.amount} Euro</p></div>
     <div class="job-column"><p>{job.producer}</p></div>
     {#if job.producer === 'chromik'}
     <div class="job-column" class:done={job.paper_ready} ><p><input type="checkbox" id="paper" name="paper" on:click={handleClick('paper', job.id)} checked="{job.paper_ready}"/>MAT</p></div>
@@ -113,7 +115,7 @@
 <style>
     .job{
         display: grid;
-        grid-template-columns: 150px 150px 200px 500px 100px 60px 60px 60px 60px 100px; 
+        grid-template-columns: 150px 150px 200px 100px 300px 80px 60px 60px 60px 60px 100px; 
         column-gap: 10px;
         row-gap: 1px;
         

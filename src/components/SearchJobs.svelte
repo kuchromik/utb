@@ -19,7 +19,7 @@
                 
     const customerSearch = () => {
             
-        const colRef = query(collection(db, "Jobs"), where("customer", "==", fields.customer), orderBy("jobstart", "asc"),);
+        const colRef = query(collection(db, "Jobs"), where("customer", ">=", fields.customer), where("customer", "<=", fields.customer + "\uf8ff"), orderBy("customer", "asc"));
 
         const unsubscribe = onSnapshot(colRef, querysnapshot => {
             let fbJobs = [];
@@ -34,7 +34,7 @@
 
     const jobnameSearch = () => {
             
-            const colRef = query(collection(db, "Jobs"), where("jobname", "==", fields.jobname), orderBy("jobstart", "asc"),);
+            const colRef = query(collection(db, "Jobs"), where("jobname", ">=", fields.jobname), where("jobname", "<=", fields.jobname + "\uf8ff"), orderBy("jobname", "asc"));
     
             const unsubscribe = onSnapshot(colRef, querysnapshot => {
                 let fbJobs = [];
@@ -49,7 +49,7 @@
 
         const detailsSearch = () => {
             
-            const colRef = query(collection(db, "Jobs"), where("details", "==", fields.details), orderBy("jobstart", "asc"),);
+            const colRef = query(collection(db, "Jobs"), where("details", ">=", fields.details), where("details", "<=", fields.details + "\uf8ff" ), orderBy("details", "asc"));
     
             const unsubscribe = onSnapshot(colRef, querysnapshot => {
                 let fbJobs = [];

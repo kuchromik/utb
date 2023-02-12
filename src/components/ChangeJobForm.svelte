@@ -16,10 +16,9 @@ const docRef = doc(db, 'Jobs', id);
 let dispatch = createEventDispatcher();
 
 
-let fields = { customer: '', jobname: '', details: '', producer: ''};
-let errors = { customer: '', jobname: '', details: '', producer: ''};
+let fields = { customer: '', jobname: '', quantity: '', details: '', producer: '', amount: ''};
+let errors = { customer: '', jobname: '', quantity: '', details: '', producer: '', amount: ''};
 let valid = false;
-
 
 
 onSnapshot(docRef, (doc) => {
@@ -29,6 +28,8 @@ onSnapshot(docRef, (doc) => {
         fields.jobname = job.jobname;
         fields.details = job.details;
         fields.producer = job.producer;
+        fields.quantity = job.quantity;
+        fields.amount = job.amount
        })
 
 
@@ -49,7 +50,12 @@ onSnapshot(docRef, (doc) => {
         } else {
             errors.jobname = '';
         }
-
+        if (fields.quantity == 0) {
+            valid = false;
+            errors.quantity = 'Bitte ein Menge eingeben';
+        } else {
+            errors.jobname = '';
+        }
         if (fields.details.trim().length < 5) {
             valid = false;
             errors.details = 'Details mindestens 5 Buchstaben';
@@ -90,15 +96,24 @@ onSnapshot(docRef, (doc) => {
         <div class="error">{errors.customer}</div>
     </div>
     <div class="form-field">
-        <label for="jobname">Auftrag</label>
+        <label for="jobname">Stichwort</label>
         <input type="text" id="jobname" bind:value={fields.jobname}>
         <div class="error">{errors.jobname}</div>
     </div>
     <div class="form-field">
         <label for="details">Details</label>
-       
         <textarea name="textarea" rows="5" cols="80" id="details" bind:value={fields.details}></textarea>
         <div class="error">{errors.details}</div>
+    </div>
+    <div class="form-field">
+        <label for="quantity">Menge</label>
+        <input type="number" id="quantity" bind:value={fields.quantity}>
+        <div class="error">{errors.quantity}</div>
+    </div>
+    <div class="form-field">
+        <label for="amount">Auftragswert</label>
+        <input type="number" id="amount" bind:value={fields.amount}>
+        <div class="error">{errors.amount}</div>
     </div>
     <div class="form-field">
         <label for="producer">Produzent</label>

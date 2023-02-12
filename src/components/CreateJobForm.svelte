@@ -13,8 +13,8 @@ const colRef = collection(db, 'Jobs')
 
     let dispatch = createEventDispatcher();
 
-    let fields = { customer: '', jobname: '', details: '', producer: ''};
-    let errors = { customer: '', jobname: '', details: '', producer: ''};
+    let fields = { customer: '', jobname: '', quantity: '', details: '', producer: '', amount: ''};
+    let errors = { customer: '', jobname: '', quantity: '', details: '', producer: '', amount: ''};
     let valid = false;
 
     const submitHandler = () => {
@@ -29,10 +29,18 @@ const colRef = collection(db, 'Jobs')
             errors.customer = '';
         }
 
-        if (fields.jobname.trim().length < 5) {
+        if (fields.jobname.trim().length < 4) {
             valid = false;
             errors.jobname = 'Auftrag mindestens 5 Buchstaben';
         } else {
+            errors.jobname = '';
+        }
+
+        if (fields.quantity == 0) {
+            valid = false;
+            errors.quantity = 'Bitte ein Menge eingeben';
+        } else {
+            console.log(fields.quantity);
             errors.jobname = '';
         }
 
@@ -65,15 +73,24 @@ const colRef = collection(db, 'Jobs')
         <div class="error">{errors.customer}</div>
     </div>
     <div class="form-field">
-        <label for="jobname">Auftrag</label>
+        <label for="jobname">Stichwort</label>
         <input type="text" id="jobname" bind:value={fields.jobname}>
         <div class="error">{errors.jobname}</div>
     </div>
     <div class="form-field">
         <label for="details">Details</label>
-       
         <textarea name="textarea" rows="5" cols="80" id="details" bind:value={fields.details}></textarea>
         <div class="error">{errors.details}</div>
+    </div>
+    <div class="form-field">
+        <label for="quantity">Menge</label>
+        <input type="number" id="quantity" bind:value={fields.quantity}>
+        <div class="error">{errors.quantity}</div>
+    </div>
+    <div class="form-field">
+        <label for="amount">Auftragswert</label>
+        <input type="number" id="amount" bind:value={fields.amount}>
+        <div class="error">{errors.amount}</div>
     </div>
     <div class="form-field">
         <label for="producer">Produzent</label>
