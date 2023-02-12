@@ -1,12 +1,16 @@
 <script>
+	import Button from './shared/Button.svelte';
+	import Tabs from "./shared/Tabs.svelte";
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
 	import JobList from "./components/JobList.svelte";
 	import CreateJobForm from "./components/CreateJobForm.svelte";
-	import Tabs from "./shared/Tabs.svelte";
+	import SearchJobs from "./components/SearchJobs.svelte";
+	
 	import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged} from "firebase/auth";
-    import Button from './shared/Button.svelte';
+    
 	import { onMount } from 'svelte';
+
 
 	import app from './FireStore.js';
 
@@ -21,7 +25,6 @@
 	const handleAdd = (e) => {
 		
 		activeItem = 'Aktuell';
-		console.log('dispatch add executed')
 	}
 
 	
@@ -91,13 +94,15 @@
 		<h1>Ufftragsbuch-Online</h1>
 		<Tabs {activeItem} {items} on:tabChange={tabChange}/>
 		{#if activeItem === 'Aktuell'}
-		<JobList archiv={false}/>
-		{:else if activeItem === 'Neuer Auftrag'}
+			<JobList archiv={false}/>
+			{:else if activeItem === 'Neuer Auftrag'}
 			<CreateJobForm on:add={handleAdd}/>
-		{:else if activeItem === 'Archiv'}
-		<JobList archiv={true}/>
+			{:else if activeItem === 'Archiv'}
+			<JobList archiv={true}/>
+			{:else if activeItem === 'Suchen'}
+			<SearchJobs />
 		{/if}
-	{/if}
+	{/if}	
 </main>
 <Footer />
 <style>

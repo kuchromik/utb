@@ -1,7 +1,7 @@
 <script>
     export let job;
     import Button from '../shared/Button.svelte';
-    import ChangeJobForm from './ChangeJobForm.svelte'
+    import ChangeJobForm from './ChangeJobForm.svelte';
 
     import {
     getFirestore, deleteDoc, doc, updateDoc
@@ -18,8 +18,6 @@
     let changemod = false;
 
     var datetime = new Date(job.jobstart * 1000);  
-        console.log("---datetime---");  
-        console.log(datetime.toLocaleDateString('de-DE')); 
 
     var tag = datetime.toLocaleDateString('de-DE');
     var zeit = datetime.toTimeString('de-DE').slice(0,5);

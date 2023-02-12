@@ -56,13 +56,6 @@ onSnapshot(docRef, (doc) => {
         } else {
             errors.details = '';
         }
-        /* ausgesetzt, da Feld zunächst leer bleiben darf
-        if (fields.producer.trim().length < 0) {
-            valid = false;
-            errors.producer = 'Produzent mindestens 0 Buchstaben';
-        } else {
-            errors.producer = '';
-        } */
 
         if (valid) {
            

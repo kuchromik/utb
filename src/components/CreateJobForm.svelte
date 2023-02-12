@@ -42,13 +42,6 @@ const colRef = collection(db, 'Jobs')
         } else {
             errors.details = '';
         }
-        /*
-        if (fields.producer.trim().length < 0) {
-            valid = false;
-            errors.producer = 'Produzent mindestens 0 Buchstaben';
-        } else {
-            errors.producer = '';
-        } */
 
         if (valid && fields.producer === 'chromik') {
             let job = {...fields, jobstart: jobstart, paper_ready: false, plates_ready: false, print_ready: false, shipped_ready: false, invoice_ready: false, archiv: false };
