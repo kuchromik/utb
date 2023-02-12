@@ -40,7 +40,6 @@ const colRef = collection(db, 'Jobs')
             valid = false;
             errors.quantity = 'Bitte ein Menge eingeben';
         } else {
-            console.log(fields.quantity);
             errors.jobname = '';
         }
 
