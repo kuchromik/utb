@@ -2,13 +2,9 @@
     export let job;
     import Button from '../shared/Button.svelte';
     import ChangeJobForm from './ChangeJobForm.svelte'
-    
-
-    import app from '../FireStore.js';
 
     import {
-    getFirestore, collection, getDocs,
-    addDoc, deleteDoc, doc, updateDoc
+    getFirestore, deleteDoc, doc, updateDoc
     } from 'firebase/firestore';
 
     const db = getFirestore();
@@ -26,7 +22,7 @@
         console.log(datetime.toLocaleDateString('de-DE')); 
 
     var tag = datetime.toLocaleDateString('de-DE');
-    var zeit = datetime.toTimeString('de-DE').slice(0,8);
+    var zeit = datetime.toTimeString('de-DE').slice(0,5);
 
     const handleClick = (check, id) => {
         

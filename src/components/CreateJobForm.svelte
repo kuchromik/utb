@@ -2,11 +2,10 @@
     import {createEventDispatcher} from 'svelte';
     import Button from '../shared/Button.svelte';
 
-    import app from '../FireStore.js';
 
 import {
-getFirestore, collection, getDocs,
-addDoc, deleteDoc, doc
+getFirestore, collection,
+addDoc
 } from 'firebase/firestore';
 
 const db = getFirestore()

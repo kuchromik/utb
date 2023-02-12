@@ -1,9 +1,7 @@
 <script>
-    import {fade, slide, scale} from 'svelte/transition';
-    import {flip} from 'svelte/animate';
     import JobDetails from './JobDetails.svelte';
-
-    import app from '../FireStore.js';
+    
+    export let archiv;
 
     import {
     getFirestore, collection, onSnapshot,
@@ -17,9 +15,7 @@
 
     let jobList = [];
 
-    //const colRef = collection(db, 'Jobs');
-
-    const colRef = query(collection(db, "Jobs"), where("archiv", "==", false), orderBy("jobstart", "desc"),);
+    const colRef = query(collection(db, "Jobs"), where("archiv", "==", archiv), orderBy("jobstart", "asc"),);
 
 
     const unsubscribe = onSnapshot(colRef, querysnapshot => {
