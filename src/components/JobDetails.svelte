@@ -56,7 +56,7 @@
         updateDoc(docRef, {
             archiv: true
         })
-        } else if ((producer != 'chromik') && invoice_ready) {
+        } else if ((producer != 'chr') && invoice_ready) {
 
         updateDoc(docRef, {
             archiv: true
@@ -115,8 +115,8 @@
 <style>
     .job{
         display: grid;
-        grid-template-columns: 150px 150px 200px 100px 300px 80px 60px 60px 60px 60px 100px; 
-        column-gap: 10px;
+        grid-template-columns: 150px 150px 150px 100px 200px 80px 60px 60px 60px 60px 50px 60px; 
+        column-gap: 3px;
         row-gap: 1px;
         
     }

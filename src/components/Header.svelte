@@ -4,7 +4,7 @@
 
 <header>
     <h1>
-        <img src="/img/_logo_big.png" alt="Chromik Offsetdruck">
+        <img src="./img/_logo_big.png" alt="Chromik Offsetdruck">
     </h1>
 </header>
 
