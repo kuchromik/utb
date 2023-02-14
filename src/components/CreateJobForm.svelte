@@ -50,12 +50,18 @@ const colRef = collection(db, 'Jobs')
             errors.details = '';
         }
 
-        if (valid && fields.producer === 'chromik') {
+        if (valid && fields.producer === 'chr') {
             let job = {...fields, jobstart: jobstart, paper_ready: false, plates_ready: false, print_ready: false, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
             dispatch('add');
             
-            }       
+            }
+            if (valid && fields.producer === 'doe') {
+            let job = {...fields, jobstart: jobstart, paper_ready: false, print_ready: false, shipped_ready: false, invoice_ready: false, archiv: false };
+            addDoc(colRef, job);
+            dispatch('add');
+            
+            }           
          else if (valid) {
             let job = {...fields, jobstart: jobstart, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
