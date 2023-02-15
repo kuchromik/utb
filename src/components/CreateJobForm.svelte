@@ -56,7 +56,7 @@ const colRef = collection(db, 'Jobs')
             dispatch('add');
             
             }
-            if (valid && fields.producer === 'doe') {
+         else if (valid && fields.producer === 'doe') {
             let job = {...fields, jobstart: jobstart, paper_ready: false, print_ready: false, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
             dispatch('add');
