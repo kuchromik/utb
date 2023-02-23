@@ -56,7 +56,7 @@
         updateDoc(docRef, {
             archiv: true
         })
-        } else if ((producer != 'chr') && invoice_ready) {
+        } else if ((producer != 'cod') && invoice_ready) {
 
         updateDoc(docRef, {
             archiv: true

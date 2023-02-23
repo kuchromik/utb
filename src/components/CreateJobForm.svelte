@@ -50,7 +50,7 @@ const colRef = collection(db, 'Jobs')
             errors.details = '';
         }
 
-        if (valid && fields.producer === 'chromik') {
+        if (valid && fields.producer === 'cod') {
             let job = {...fields, jobstart: jobstart, paper_ready: false, plates_ready: false, print_ready: false, shipped_ready: false, invoice_ready: false, archiv: false };
             addDoc(colRef, job);
             dispatch('add');
