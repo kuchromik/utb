@@ -6,6 +6,7 @@
 	import JobList from "./components/JobList.svelte";
 	import CreateJobForm from "./components/CreateJobForm.svelte";
 	import SearchJobs from "./components/SearchJobs.svelte";
+	import Auswertung from "./components/Auswertung.svelte";
 	
 	import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged} from "firebase/auth";
     
@@ -15,7 +16,7 @@
 	import app from './FireStore.js';
 
 	//tabs
-	let items = ['Aktuell', 'Neuer Auftrag', 'Archiv', 'Suchen'];
+	let items = ['Aktuell', 'Neuer Auftrag', 'Archiv', 'Suchen', 'Auswertung'];
 	let activeItem = 'Aktuell';
 
 	const tabChange = (e) => {
@@ -102,6 +103,8 @@
 			<JobList archiv={true}/>
 			{:else if activeItem === 'Suchen'}
 			<SearchJobs />
+			{:else if activeItem === 'Auswertung'}
+			<Auswertung />
 		{/if}
 	{/if}	
 </main>
