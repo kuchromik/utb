@@ -56,7 +56,7 @@
         updateDoc(docRef, {
             archiv: true
         })
-        } else if ((producer != 'chr') && invoice_ready) {
+        } else if ((producer != 'cod') && invoice_ready) {
 
         updateDoc(docRef, {
             archiv: true
@@ -95,16 +95,12 @@
     <div class="job-column"><p>{job.details}</p></div>
     <div class="job-column"><p>{job.amount} Euro</p></div>
     <div class="job-column"><p>{job.producer}</p></div>
-    {#if job.producer == 'chr'}
-    <div class="job-column" class:done={job.paper_ready} class:archiv={job.archiv}><p><input type="checkbox" id="paper" name="paper" on:click={handleClick('paper', job.id)} checked="{job.paper_ready}"/>MAT</p></div>
-    <div class="job-column" class:done={job.plates_ready} class:archiv={job.archiv}><p><input type="checkbox" id="plates" name="plates" on:click={handleClick('plates', job.id)} checked="{job.plates_ready}"/>PLAT</p></div>
-    <div class="job-column" class:done={job.print_ready} class:archiv={job.archiv}><p><input type="checkbox" id="print" name="print" on:click={handleClick('print', job.id)} checked="{job.print_ready}"/>DRU</p></div>
-    {:else if job.producer == 'doe'}
-    <div class="job-column" class:done={job.paper_ready} class:archiv={job.archiv}><p><input type="checkbox" id="paper" name="paper" on:click={handleClick('paper', job.id)} checked="{job.paper_ready}"/>MAT</p></div>
-    <div class="job-column" class:done={job.print_ready} class:archiv={job.archiv}><p><input type="checkbox" id="print" name="print" on:click={handleClick('print', job.id)} checked="{job.print_ready}"/>DRU</p></div>
+    {#if job.producer === 'chr'}
+    <div class="job-column" class:done={job.paper_ready} ><p><input type="checkbox" id="paper" name="paper" on:click={handleClick('paper', job.id)} checked="{job.paper_ready}"/>MAT</p></div>
+    <div class="job-column" class:done={job.plates_ready} ><p><input type="checkbox" id="plates" name="plates" on:click={handleClick('plates', job.id)} checked="{job.plates_ready}"/>PLAT</p></div>
+    <div class="job-column" class:done={job.print_ready} ><p><input type="checkbox" id="print" name="print" on:click={handleClick('print', job.id)} checked="{job.print_ready}"/>DRU</p></div>
     {/if}
-
-    <div class="job-column" class:done={job.invoice_ready} class:archiv={job.archiv}><p><input type="checkbox" id="done" name="invoice" on:click={handleClick('invoice', job.id)} checked="{job.invoice_ready}"/>REC</p></div>
+    <div class="job-column" class:done={job.invoice_ready} ><p><input type="checkbox" id="done" name="invoice" on:click={handleClick('invoice', job.id)} checked="{job.invoice_ready}"/>REC</p></div>
     <div>
         {#if !job.archiv}
          <Button flat={false} on:click={() => handleArchiv(job.id)}>archivieren</Button>
@@ -128,6 +124,7 @@
         border: solid 2px crimson;
         background-color: lightgray;
         border-radius: 6px;
+        margin-bottom: 1rem;
     }
     p, input{
         padding-left: 1rem;
@@ -136,8 +133,5 @@
         border-color: grey;
         background-color: #45c496;
     }
-    .archiv{
-        border-color: grey;
-        background-color: lightskyblue;
-    }
+    
 </style>

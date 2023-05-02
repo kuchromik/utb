@@ -88,7 +88,6 @@
 	{/if}
 	{#if user}
 	<div>
-		<p class="loginfo">logged as {user.email}</p>
 		<form>
 			<Button type="primary" flat={false} on:click={logout}>LOGOUT</Button>
 		</form>
@@ -139,9 +138,5 @@
       margin: 10px;
       text-align: left;
   }
-  .loginfo {
-		text-align: center;
-        color: #aaa;
-        font-size: 14px;
-    }
+ 
 </style>
