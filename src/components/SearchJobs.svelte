@@ -19,7 +19,7 @@
                 
     const customerSearch = () => {
             
-        const colRef = query(collection(db, "Jobs"), where("customer", ">=", fields.customer), where("customer", "<=", fields.customer + "\uf8ff"), orderBy("customer", "asc"));
+        const colRef = query(collection(db, "Jobs"), where("customer", "==", fields.customer), orderBy("jobstart", "asc"));
 
         const unsubscribe = onSnapshot(colRef, querysnapshot => {
             let fbJobs = [];
