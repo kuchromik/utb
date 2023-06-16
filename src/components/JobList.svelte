@@ -9,7 +9,12 @@
     query, where, orderBy
     } from 'firebase/firestore';
 
+    let counter = 0;
 
+    let increment = () =>{
+	counter++
+	return counter;
+    }
 
     const db = getFirestore()
 
@@ -30,9 +35,12 @@
                 
     
 </script>
-
+<br>
+<p>Jobs in Liste: {counter}</p>
+<br>
 <div class="job-list">
     {#each jobList as job, id(job)}
+    {increment()}
     <div>
             <JobDetails {job}/>
     </div>
