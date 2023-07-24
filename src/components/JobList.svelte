@@ -12,8 +12,14 @@
     let counter = 0;
 
     let increment = () =>{
-	counter++
-	return counter;
+	counter++;
+    console.log(counter);
+	return "";
+    }
+
+    let setCounterToZero = () =>{
+	counter = 0;
+	return "";
     }
 
     const db = getFirestore()
@@ -30,6 +36,7 @@
                 fbJobs = [job, ...fbJobs];  
                 })
                 jobList = fbJobs;
+                setCounterToZero();
                 }
                 )
                 
