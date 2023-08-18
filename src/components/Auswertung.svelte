@@ -9,6 +9,11 @@
 
     let jobList = [];
 
+    let producerSumlist = [{
+     name: "chr",
+     sum: 0
+    }];
+
     let summe_chr = 0;
     let summe_doe = 0;
     let summe_pwd = 0;
@@ -17,6 +22,7 @@
     let summe_sil = 0;
     let summe_pap = 0;
     let summe_prm = 0;
+    let summe_hee = 0;
 
     const colRef = query(collection(db, "Jobs"));
 
@@ -31,10 +37,21 @@
                 let sum_sil = 0;
                 let sum_pap = 0;
                 let sum_prm = 0;
+                let sum_hee = 0;
 
                 querysnapshot.forEach((doc) => {
                 let job = { ...doc.data(), id: doc.id};
                 fbJobs = [job, ...fbJobs];
+
+                
+
+                producerSumlist.some(item => {
+                    if (item.name === job.producer) {
+                    item.sum = item.sum + Number(job.amount);
+                    console.log(item.sum);
+                    return true;
+  }
+});
                 
                 switch (job.producer) {
                     case "chr":
@@ -61,6 +78,9 @@
                     case "prm":
                     sum_prm = sum_prm + Number(job.amount);
                     break;
+                    case "hee":
+                    sum_hee = sum_hee + Number(job.amount);
+                    break;
                 }
                 })
                 jobList = fbJobs;
@@ -72,6 +92,7 @@
                 summe_sil = sum_sil;
                 summe_pap = sum_pap;
                 summe_prm = sum_prm;
+                summe_hee = sum_hee;
                 }
                 )
                 
@@ -88,6 +109,9 @@
     <h3>Silberdruck: <span>{summe_sil} Euro</span></h3>
     <h3>Pape: <span>{summe_pap} Euro</span></h3>
     <h3>Primus: <span>{summe_prm} Euro</span></h3>
+    <h3>Heenemann: <span>{summe_hee} Euro</span></h3>
+    <br>
+    <p>{producerSumlist.name}</p>
 
    
 </div>

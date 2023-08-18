@@ -11,7 +11,7 @@
 <style>
 
     header {
-        background: #f7f7f7;
+        background: #222;
         padding: 20px;
     }
 

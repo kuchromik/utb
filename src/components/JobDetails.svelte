@@ -126,7 +126,7 @@
     }
     .job-column{
         border: solid 2px crimson;
-        background-color: lightgray;
+        background-color: white;
         border-radius: 6px;
         margin-bottom: 1rem;
     }

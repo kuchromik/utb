@@ -13,7 +13,6 @@
 
     let increment = () =>{
 	counter++;
-    console.log(counter);
 	return "";
     }
 
