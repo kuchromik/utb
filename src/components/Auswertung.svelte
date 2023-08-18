@@ -14,6 +14,8 @@
      sum: 0
     }];
 
+    let index;
+
     let summe_chr = 0;
     let summe_doe = 0;
     let summe_pwd = 0;
@@ -39,62 +41,73 @@
                 let sum_prm = 0;
                 let sum_hee = 0;
 
-                querysnapshot.forEach((doc) => {
-                let job = { ...doc.data(), id: doc.id};
-                fbJobs = [job, ...fbJobs];
+                    querysnapshot.forEach((doc) => {
+                        let job = { ...doc.data(), id: doc.id};
+                        fbJobs = [job, ...fbJobs];
+
+                        const producerExist = producerSumlist.some(
+                            (item) => item.name === job.producer
+                            );
+
+
+                        if (!producerExist) {
+                            producerSumlist.push({name: job.producer, sum: 0})
+                        }
+
+                        index = producerSumlist.findIndex(producer => producer.name === job.producer);
+
+                        console.log(index);
+
+                        producerSumlist[index].sum = producerSumlist[index].sum + Number(job.amount);
+
+                        /* console.log(producerSumlist[index].name + producerSumlist[index].sum); */
 
                 
+                        switch (job.producer) {
+                            case "chr":
+                            sum_chr = sum_chr + Number(job.amount);
+                            break;
+                            case "doe":
+                            sum_doe = sum_doe + Number(job.amount);
+                            break;
+                            case "pwd":
+                            sum_pwd = sum_pwd + Number(job.amount);
+                            break;
+                            case "wmd":
+                            sum_wmd = sum_wmd + Number(job.amount);
+                            break;
+                            case "sax":
+                            sum_sax = sum_sax + Number(job.amount);
+                            break;
+                            case "sil":
+                            sum_sil = sum_sil + Number(job.amount);
+                            break;
+                            case "pap":
+                            sum_pap = sum_pap + Number(job.amount);
+                            break;
+                            case "prm":
+                            sum_prm = sum_prm + Number(job.amount);
+                            break;
+                            case "hee":
+                            sum_hee = sum_hee + Number(job.amount);
+                            break;
+                            }
+                        }
+                    )
 
-                producerSumlist.some(item => {
-                    if (item.name === job.producer) {
-                    item.sum = item.sum + Number(job.amount);
-                    console.log(item.sum);
-                    return true;
-  }
-});
-                
-                switch (job.producer) {
-                    case "chr":
-                    sum_chr = sum_chr + Number(job.amount);
-                    break;
-                    case "doe":
-                    sum_doe = sum_doe + Number(job.amount);
-                    break;
-                    case "pwd":
-                    sum_pwd = sum_pwd + Number(job.amount);
-                    break;
-                    case "wmd":
-                    sum_wmd = sum_wmd + Number(job.amount);
-                    break;
-                    case "sax":
-                    sum_sax = sum_sax + Number(job.amount);
-                    break;
-                    case "sil":
-                    sum_sil = sum_sil + Number(job.amount);
-                    break;
-                    case "pap":
-                    sum_pap = sum_pap + Number(job.amount);
-                    break;
-                    case "prm":
-                    sum_prm = sum_prm + Number(job.amount);
-                    break;
-                    case "hee":
-                    sum_hee = sum_hee + Number(job.amount);
-                    break;
-                }
-                })
-                jobList = fbJobs;
-                summe_chr = sum_chr;
-                summe_doe = sum_doe;
-                summe_pwd = sum_pwd;
-                summe_wmd = sum_wmd;
-                summe_sax = sum_sax;
-                summe_sil = sum_sil;
-                summe_pap = sum_pap;
-                summe_prm = sum_prm;
-                summe_hee = sum_hee;
-                }
+                    jobList = fbJobs;
+                    summe_chr = sum_chr;
+                    summe_doe = sum_doe;
+                    summe_pwd = sum_pwd;
+                    summe_wmd = sum_wmd;
+                    summe_sax = sum_sax;
+                    summe_sil = sum_sil;
+                    summe_pap = sum_pap;
+                    summe_prm = sum_prm;
+                    summe_hee = sum_hee;
+                    }
                 )
+                console.log(index);
                 
 </script>
 
@@ -111,7 +124,10 @@
     <h3>Primus: <span>{summe_prm} Euro</span></h3>
     <h3>Heenemann: <span>{summe_hee} Euro</span></h3>
     <br>
-    <p>{producerSumlist.name}</p>
+    <p>{producerSumlist[0].name} {producerSumlist[0].sum}</p>
+    <br>
+    
+    
 
    
 </div>
