@@ -7,39 +7,34 @@
     query
     } from 'firebase/firestore';
 
-    const db = getFirestore()
+    const db = getFirestore();
 
-    let loopdelay = 0;
-
-    let producerSumlist = [{
-        id: 0,
-        name: "chr",
-        sum: 0
-    }];
-
-
+    let producerSumlist = [];
+    
     const colRef = query(collection(db, "Jobs"));
 
 
     const unsubscribe = onSnapshot(colRef, querysnapshot => {
 
                     querysnapshot.forEach((doc) => {
-                        let job = { ...doc.data(), id: doc.id};
-                        // fbJobs = [job, ...fbJobs];
 
-                        const producerExist = producerSumlist.some(
+                        
+                        let job = { ...doc.data(), id: doc.id};
+
+                        let producerExist = producerSumlist.some(
                             (item) => item.name === job.producer
                             );
 
 
                         if (!producerExist) {
                             let newIndex = producerSumlist.length;
-                            producerSumlist.push({id: newIndex, name: job.producer, sum: 0})
+                            producerSumlist.push({id: newIndex, name: job.producer, sum: 0, count: 0})
                             }
 
                         let index = producerSumlist.findIndex(producer => producer.name === job.producer);
 
                         producerSumlist[index].sum = producerSumlist[index].sum + Number(job.amount);
+                        producerSumlist[index].count++;
                         });
 
                     producerSumlist.sort((a, b) => {
@@ -63,8 +58,8 @@
     <br />
     <ul>
 	    {#each producerSumlist as item, index (item.id) }
-            <div transition:fade={{ delay: index * 50, duration: 100 }} class="producer" style="width:{(item.sum/producerSumlist[0].sum)*100}%;">
-		    <li>{item.name} {item.sum}</li>
+            <div transition:fade={{ delay: index * 50, duration: 100 }} class="producer" style="width:{(item.sum/producerSumlist[0].sum)*80 +20}%;">
+		    <li>{item.name} hat {item.count} Jobs mit {item.sum} Euro Umsatz</li>
         </div>
 	    {/each}
     </ul>
