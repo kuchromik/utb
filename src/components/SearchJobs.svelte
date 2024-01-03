@@ -16,16 +16,32 @@
     const db = getFirestore()
 
     let jobList = [];
+    let filteredJobs = [];
+    let string = '';
+    let searchstring = '';
+    let stringToLowerCase = '';
+    let searchstringToLowerCase = '';
+    let isSubstring = false;
                 
     const customerSearch = () => {
             
-        const colRef = query(collection(db, "Jobs"), where("customer", "==", fields.customer), orderBy("jobstart", "asc"));
+        const colRef = query(collection(db, "Jobs"), /*where("customer", "==", fields.customer), */orderBy("jobstart", "asc"));
 
         const unsubscribe = onSnapshot(colRef, querysnapshot => {
             let fbJobs = [];
             querysnapshot.forEach((doc) => {
-            let job = { ...doc.data(), id: doc.id};
-            fbJobs = [job, ...fbJobs];  
+                
+                string = doc.data().customer;
+                searchstring = fields.customer;
+                stringToLowerCase =  string.toLowerCase();
+                searchstringToLowerCase =  searchstring.toLowerCase();
+
+                isSubstring = stringToLowerCase.includes(searchstringToLowerCase);
+                
+                if (isSubstring) {
+                    let job = { ...doc.data(), id: doc.id};
+                    fbJobs = [job, ...fbJobs];  
+                }
             })
             jobList = fbJobs;
             }
