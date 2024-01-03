@@ -11,12 +11,11 @@
 
     let fields = { customer: '', jobname: '', details: '', producer: ''};
     let errors = { customer: '', jobname: '', details: '', producer: ''};
-    let valid = false;
 
     const db = getFirestore()
 
     let jobList = [];
-    let filteredJobs = [];
+
     let string = '';
     let searchstring = '';
     let stringToLowerCase = '';
@@ -44,36 +43,79 @@
                 }
             })
             jobList = fbJobs;
+
+            string = '';
+            searchstring = '';
+            stringToLowerCase = '';
+            searchstringToLowerCase = '';
+            isSubstring = false;
+            fields = { customer: '', jobname: '', details: '', producer: ''};
+            errors = { customer: '', jobname: '', details: '', producer: ''};
             }
-            )
+        
+        )
     }
 
     const jobnameSearch = () => {
             
-            const colRef = query(collection(db, "Jobs"), where("jobname", ">=", fields.jobname), where("jobname", "<=", fields.jobname + "\uf8ff"), orderBy("jobname", "asc"));
+            const colRef = query(collection(db, "Jobs"), /*where("jobname", ">=", fields.jobname), where("jobname", "<=", fields.jobname + "\uf8ff"), */orderBy("jobstart", "asc"));
     
             const unsubscribe = onSnapshot(colRef, querysnapshot => {
                 let fbJobs = [];
                 querysnapshot.forEach((doc) => {
-                let job = { ...doc.data(), id: doc.id};
-                fbJobs = [job, ...fbJobs];  
+                
+                    string = doc.data().jobname;
+                    searchstring = fields.jobname;
+                    stringToLowerCase =  string.toLowerCase();
+                    searchstringToLowerCase =  searchstring.toLowerCase();
+
+                    isSubstring = stringToLowerCase.includes(searchstringToLowerCase);
+                
+                    if (isSubstring) {
+                        let job = { ...doc.data(), id: doc.id};
+                        fbJobs = [job, ...fbJobs];  
+                    }  
                 })
                 jobList = fbJobs;
+                string = '';
+                searchstring = '';
+                stringToLowerCase = '';
+                searchstringToLowerCase = '';
+                isSubstring = false;
+                fields = { customer: '', jobname: '', details: '', producer: ''};
+                errors = { customer: '', jobname: '', details: '', producer: ''};
                 }
                 )
         }
 
         const detailsSearch = () => {
             
-            const colRef = query(collection(db, "Jobs"), where("details", ">=", fields.details), where("details", "<=", fields.details + "\uf8ff" ), orderBy("details", "asc"));
+            const colRef = query(collection(db, "Jobs"), /*where("details", ">=", fields.details), where("details", "<=", fields.details + "\uf8ff" ), */orderBy("jobstart", "asc"));
     
             const unsubscribe = onSnapshot(colRef, querysnapshot => {
                 let fbJobs = [];
                 querysnapshot.forEach((doc) => {
-                let job = { ...doc.data(), id: doc.id};
-                fbJobs = [job, ...fbJobs];  
+                
+                    string = doc.data().details;
+                    searchstring = fields.details;
+                    stringToLowerCase =  string.toLowerCase();
+                    searchstringToLowerCase =  searchstring.toLowerCase();
+
+                    isSubstring = stringToLowerCase.includes(searchstringToLowerCase);
+                
+                    if (isSubstring) {
+                        let job = { ...doc.data(), id: doc.id};
+                        fbJobs = [job, ...fbJobs];  
+                    }  
                 })
                 jobList = fbJobs;
+                string = '';
+                searchstring = '';
+                stringToLowerCase = '';
+                searchstringToLowerCase = '';
+                isSubstring = false;
+                fields = { customer: '', jobname: '', details: '', producer: ''};
+                errors = { customer: '', jobname: '', details: '', producer: ''};
                 }
                 )
         }
