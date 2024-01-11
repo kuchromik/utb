@@ -43,7 +43,7 @@
                 }
             })
             jobList = fbJobs;
-
+            /*
             string = '';
             searchstring = '';
             stringToLowerCase = '';
@@ -51,6 +51,7 @@
             isSubstring = false;
             fields = { customer: '', jobname: '', details: '', producer: ''};
             errors = { customer: '', jobname: '', details: '', producer: ''};
+            */
             }
         
         )
