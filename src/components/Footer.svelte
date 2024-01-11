@@ -1,6 +1,6 @@
 <footer>
     <div class="copyright">
-        Copyright 2023 Chromik Offsetdruck
+        Copyright 2024 Chromik Offsetdruck
     </div>
 </footer>
 
